@@ -67,28 +67,22 @@ public class Lesson2 {
         System.out.println("Task 8 . find count of numbers in power of 2 from given array.........");
         int countOfNumbersInPower2 = 0;
         int temp;
-        int[] array = {0, 2, 16, 4, 32, 7891, 1, 64};
+        int[] array = {0, 2, 16, 4, 32, 7891, 1, 64, 6};
         for (int i = 0; i < array.length; i++) {
             if (array[i] < 1) {
                 continue;
             }
             temp = array[i];
-//            while (temp % 2 == 0) {    //first decision with while loop
-//                temp /= 2;
-//            }
-//            if (temp == 1) {
-//                countOfNumbersInPower2++;
-//            }                         //..........................
-
-//            if (temp == 1) {          //second decision  with bit | operations
-//                countOfNumbersInPower2++;
-//            }
-//            if ((temp | 1) == temp + 1) {
-//                countOfNumbersInPower2++;
-//            }                         //...............................
-            if ((temp & temp - 1) == 0) { //third decision  with bit & operations
-                countOfNumbersInPower2++;
+            while (temp % 2 == 0) {    //first decision with while loop
+                temp /= 2;
             }
+            if (temp == 1) {
+                countOfNumbersInPower2++;
+            }                         //..........................
+
+//            if ((temp & temp - 1) == 0) { //second decision  with bit '&' operations
+//                countOfNumbersInPower2++;
+//            }
         }
         System.out.println(countOfNumbersInPower2);
         System.out.println("........................................................................");
