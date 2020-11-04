@@ -1,7 +1,5 @@
 package am.picsart.lesson1;
 
-import java.sql.SQLOutput;
-
 public class App {
     public static void main(String[] args) {
         byte byteMinValue = -128;
