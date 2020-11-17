@@ -4,10 +4,17 @@ public class Player extends Human {
 
     private int playingNumber;
     private int salary;
+    private int yellowCardCount;
+    private String[] actions;
 
 
     public Player(String firstName, String lastName, int age) {
+
         super(firstName, lastName, age);
+        actions = new String[]{"simulation", "hand play",
+                "rouge play", "send pass", "send long pass",
+                "shot near target",
+                "foul", "take bool", "shoot on target"};
     }
 
     public int getPlayingNumber() {
@@ -26,6 +33,19 @@ public class Player extends Human {
         this.salary = salary;
     }
 
+    public int getYellowCardCount() {
+        return yellowCardCount;
+    }
+
+    public void setYellowCardCount(int yellowCardCount) {
+        this.yellowCardCount = yellowCardCount;
+    }
+
+    public String[] getActions() {
+
+        return actions.clone();
+    }
+
     @Override
     public void printInfo() {
         super.printInfo();
@@ -37,4 +57,6 @@ public class Player extends Human {
         return super.toString() +
                 " playingNumber=" + playingNumber;
     }
+
+
 }

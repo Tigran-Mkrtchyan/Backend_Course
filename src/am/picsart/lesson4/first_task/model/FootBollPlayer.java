@@ -26,4 +26,5 @@ public class FootBollPlayer extends Player {
         return super.toString() +
                 " position=" + position ;
     }
+
 }
