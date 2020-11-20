@@ -11,7 +11,6 @@ import java.util.function.Consumer;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-        //C:\Users\Galust\Desktop\students.txt
         System.out.println("Please enter students file path");
         Scanner s = new Scanner(System.in);
         String path = s.nextLine();
