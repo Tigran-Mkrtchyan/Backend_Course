@@ -6,7 +6,6 @@ import am.picsart.lesson6.task2.services.StudentService;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.function.Consumer;
 
 public class Main {
 

@@ -5,7 +5,8 @@ public class Player extends Human {
     private int playingNumber;
     private int salary;
     private int yellowCardCount;
-    private String[] actions;
+    private static String[] actions;
+    private boolean isActivePlayer = true;
 
 
     public Player(String firstName, String lastName, int age) {
@@ -14,7 +15,7 @@ public class Player extends Human {
         actions = new String[]{"simulation", "hand play",
                 "rouge play", "send pass", "send long pass",
                 "shot near target",
-                "foul", "take bool", "shoot on target"};
+                "foul", "take bool", "shoot on target", "tired"};
     }
 
     public int getPlayingNumber() {
@@ -41,9 +42,18 @@ public class Player extends Human {
         this.yellowCardCount = yellowCardCount;
     }
 
-    public String[] getActions() {
+    public static String[] getActions() {
+        String[] copyActions = new String[actions.length];
+        System.arraycopy(actions, 0, copyActions, 0, actions.length);
+        return copyActions;
+    }
 
-        return actions.clone();
+    public boolean isActivePlayer() {
+        return isActivePlayer;
+    }
+
+    public void setActivePlayer(boolean activePlayer) {
+        isActivePlayer = activePlayer;
     }
 
     @Override

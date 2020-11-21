@@ -1,6 +1,6 @@
 package am.picsart.lesson4.first_task.model;
 
-public class Coach extends Human{
+public class Coach extends Human {
     private int salary;
 
     public Coach(String firstName, String lastName, int age) {

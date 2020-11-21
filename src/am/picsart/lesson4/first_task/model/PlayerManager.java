@@ -20,8 +20,8 @@ public class PlayerManager extends Human {
 
     @Override
     public String toString() {
-        return super.toString()+
-                "players=" + Arrays.toString(players) ;
+        return super.toString() +
+                "players=" + Arrays.toString(players);
     }
 
     @Override

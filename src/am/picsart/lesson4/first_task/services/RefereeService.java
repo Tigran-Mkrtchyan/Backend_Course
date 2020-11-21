@@ -1,25 +1,29 @@
 package am.picsart.lesson4.first_task.services;
 
+import am.picsart.lesson4.first_task.model.Game;
 import am.picsart.lesson4.first_task.model.Referee;
 
 public class RefereeService implements Inspectable {
     private String[] rougeFouls;
 
-    public RefereeService(){
+    public RefereeService() {
+
         rougeFouls = new String[]{"simulation", "hand play", "rouge play"};
     }
 
+    @Override
     public void startGame(Referee referee) {
         System.out.println("Start game");
     }
 
-
-    public void finishGame(Referee referee) {
+    @Override
+    public void finishGame(Referee referee, Game game) {
+        GameService.resetGame(game);
         System.out.println("Finish game");
     }
 
-
-    public String stopGame(Referee referee,String cause) {
+    @Override
+    public String stopGame(Referee referee, String cause) {
         if (isFoulForYellowCard(cause)) {
             return "yellow card";
         }
