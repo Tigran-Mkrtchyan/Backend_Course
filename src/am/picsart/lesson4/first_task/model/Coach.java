@@ -14,6 +14,4 @@ public class Coach extends Human {
     public void setSalary(int salary) {
         this.salary = salary;
     }
-
-
 }

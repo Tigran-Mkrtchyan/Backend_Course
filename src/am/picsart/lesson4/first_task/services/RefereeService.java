@@ -1,13 +1,12 @@
 package am.picsart.lesson4.first_task.services;
 
-import am.picsart.lesson4.first_task.model.Game;
+import am.picsart.lesson4.first_task.model.Football;
 import am.picsart.lesson4.first_task.model.Referee;
 
 public class RefereeService implements Inspectable {
-    private String[] rougeFouls;
+    private final String[] rougeFouls;
 
     public RefereeService() {
-
         rougeFouls = new String[]{"simulation", "hand play", "rouge play"};
     }
 
@@ -17,9 +16,9 @@ public class RefereeService implements Inspectable {
     }
 
     @Override
-    public void finishGame(Referee referee, Game game) {
-        GameService.resetGame(game);
-        System.out.println("Finish game");
+    public void finishGame(Referee referee, Football football) {
+        FootballService.resetGame(football);
+        System.out.println("Finish football");
     }
 
     @Override
@@ -40,5 +39,11 @@ public class RefereeService implements Inspectable {
             }
         }
         return false;
+    }
+
+    public static Referee getRefereeEstrada() {
+        Referee referee = new Referee("Khavier", "Estrada", 32);
+        referee.setMainReferee(true);
+        return referee;
     }
 }

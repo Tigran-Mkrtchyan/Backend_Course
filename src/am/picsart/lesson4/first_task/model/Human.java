@@ -1,6 +1,6 @@
 package am.picsart.lesson4.first_task.model;
 
-public class Human {
+public abstract class Human {
     private String firstName;
     private String lastName;
     private String country;

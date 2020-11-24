@@ -2,22 +2,16 @@ package am.picsart.lesson4.first_task.services;
 
 import am.picsart.lesson4.first_task.model.Player;
 
-import java.util.Random;
+import java.io.IOException;
 
-public class PlayerService implements Playable {
+public abstract class PlayerService implements Playable {
 
-    @Override
-    public String play(Player player) {
-        int actionIndex = new Random().nextInt(Player.getActions().length);
-        return Player.getActions()[actionIndex];
-    }
-
-    public static int addYellowCard(Player player) {
+    public static int addYellowCard(Player player) throws IOException {
         int count = player.getYellowCardCount();
         if (count > 0) {
             return ++count;
         }
-        System.out.println(player.getFirstName() + " get yellow card");
+        FileService.saveAction(player.getFirstName() + " get yellow card", true);
         player.setYellowCardCount(++count);
         return count;
     }

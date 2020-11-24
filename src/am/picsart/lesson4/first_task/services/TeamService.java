@@ -1,15 +1,16 @@
 package am.picsart.lesson4.first_task.services;
 
-import am.picsart.lesson4.first_task.model.FootBollPlayer;
+import am.picsart.lesson4.first_task.model.FootballPlayer;
 import am.picsart.lesson4.first_task.model.Player;
 import am.picsart.lesson4.first_task.model.Team;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class TeamService {
 
-    public static void changePlayer(Team team, FootBollPlayer out) {
-        FootBollPlayer in = getPlayerFromReserve(team, out);
+    public static void changePlayer(Team team, FootballPlayer out) throws IOException {
+        FootballPlayer in = getPlayerFromReserve(team, out);
         if (in == null) {
             return;
         }
@@ -20,27 +21,25 @@ public class TeamService {
         }
     }
 
-    public static FootBollPlayer getActivePlayer(Team team) {
-        FootBollPlayer activePlayer;
-        while (!(activePlayer = getPlayer(team)).isActivePlayer()) {
-
-        }
+    public static FootballPlayer getActivePlayer(Team team) {
+        FootballPlayer activePlayer;
+        while (!(activePlayer = getPlayer(team)).isActivePlayer()) ;
         return activePlayer;
     }
 
-    private static FootBollPlayer getPlayer(Team team) {
+    private static FootballPlayer getPlayer(Team team) {
         int index = new Random().nextInt(team.getPlayers().length);
         return team.getPlayers()[index];
     }
 
-    public static FootBollPlayer getPlayerFromReserve(Team team, FootBollPlayer out) {
-        FootBollPlayer[] reserved = team.getReservedPlayers();
+    public static FootballPlayer getPlayerFromReserve(Team team, FootballPlayer out) throws IOException {
+        FootballPlayer[] reserved = team.getReservedPlayers();
         for (int i = 0; i < reserved.length; i++) {
             if (!reserved[i].isChanged()) {
-                FootBollPlayer temp = reserved[i];
+                FootballPlayer temp = reserved[i];
                 out.setChanged(true);
                 reserved[i] = out;
-                System.out.printf("Exchange: in place %s entered %s\n", out.getFirstName(), temp.getFirstName());
+                FileService.saveAction(String.format("Exchange: in place %s entered %s", out.getFirstName(), temp.getFirstName()), true);
                 return temp;
             }
         }
@@ -55,4 +54,5 @@ public class TeamService {
             PlayerService.resetPlayer(player);
         }
     }
+
 }

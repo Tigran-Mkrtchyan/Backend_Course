@@ -1,98 +1,144 @@
 package am.picsart.lesson4.first_task.main;
 
-import am.picsart.lesson4.first_task.model.*;
-import am.picsart.lesson4.first_task.services.GameService;
-import am.picsart.lesson4.first_task.services.PlayerService;
-import am.picsart.lesson4.first_task.services.RefereeService;
 
+import am.picsart.lesson4.first_task.model.Football;
+import am.picsart.lesson4.first_task.model.Referee;
+import am.picsart.lesson4.first_task.model.Team;
+import am.picsart.lesson4.first_task.services.FileService;
+import am.picsart.lesson4.first_task.services.FootballService;
+import am.picsart.lesson4.first_task.services.RefereeService;
+import am.picsart.lesson4.first_task.services.TeamFactory;
+
+import java.io.*;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
 
-        FootBollPlayer footBollPlayer1 = new FootBollPlayer("Tibo", "Curtua", 25);
-        footBollPlayer1.setPlayingNumber(1);
-        footBollPlayer1.setPosition("goalkeeper");
+    private final static Scanner S;
 
-        FootBollPlayer footBollPlayer2 = new FootBollPlayer("Marco", "Asensio", 24);
-        footBollPlayer2.setPlayingNumber(2);
-        footBollPlayer2.setPosition("right winger");
+    static {
+        S = new Scanner(System.in);
+    }
 
-        FootBollPlayer footBollPlayer3 = new FootBollPlayer("Raul", "Garcia", 24);
-        footBollPlayer3.setPlayingNumber(3);
-        footBollPlayer3.setPosition("left winger");
+    public static void main(String[] args) throws IOException {
+        System.out.println("welcome to football game");
+        getTitle();
+    }
 
-        FootBollPlayer footBollPlayer4 = new FootBollPlayer("David", "Backham", 35);
-        footBollPlayer4.setPlayingNumber(4);
-        footBollPlayer4.setPosition("central");
+    private static void getTitle() throws IOException {
+        boolean isActive = true;
+        while (isActive) {
+            System.out.println("1. new game");
+            System.out.println("2. show history");
+            System.out.println("3. reset history");
+            System.out.println("4. exit");
+            int number = S.nextInt();
+            switch (number) {
+                case 1:
+                    startGame();
+                    break;
+                case 2:
+                    showHistory();
+                    break;
+                case 3:
+                    resetHistory();
+                    break;
+                case 4:
+                    isActive = false;
+                    System.out.println("good bye");
+                    break;
+                default:
+                    System.out.println("Invalid button please choose again");
+            }
+        }
+    }
 
+    private static void resetHistory() throws IOException {
+        FileService.saveHistory("", false);
+    }
 
-        FootBollPlayer footBollPlayer5 = new FootBollPlayer("Cristiano", "Ronaldo", 33);
-        footBollPlayer5.setPlayingNumber(5);
-        footBollPlayer5.setPosition("central attack");
+    private static void showHistory() throws FileNotFoundException {
+        FileService.showHistory();
+    }
 
-        FootBollPlayer reservedPlayer1 = new FootBollPlayer("Serxio", "Ramos", 35);
-        footBollPlayer4.setPlayingNumber(6);
-        footBollPlayer4.setPosition("left winger");
+    private static void startGame() throws IOException {
+        System.out.println("...... Teams list ......");
+        String[] names = TeamFactory.getTeamsName();
+        for (int i = 0; i < names.length; i++) {
+            System.out.printf("%d. %s\n", i + 1, names[i]);
+        }
+        System.out.println("Please choose first team");
+        int firstTeamIndex = S.nextInt();
+        System.out.println("Please choose second team");
+        int secondTeamIndex = S.nextInt();
+        if (isValidNumberOfTeam(firstTeamIndex, secondTeamIndex)) {
+            Team team1 = TeamFactory.getTeam(firstTeamIndex - 1);
+            Team team2 = TeamFactory.getTeam(secondTeamIndex - 1);
+            Referee referee = RefereeService.getRefereeEstrada();
+            Football football = new Football(team1, team2, referee);
+            FootballService footballService = new FootballService(football);
+            footballService.play();
+            String resultInfo = String.format("%s vs %s : %s : winner : %s", team1.getName(), team2.getName(), FootballService.getScore(football), FootballService.getWinner(football));
+            processGameResult(resultInfo, football);
+        } else {
+            System.out.println("teams are same or incorrect team number, please choose team again");
+            startGame();
+        }
+    }
 
+    private static boolean isValidNumberOfTeam(int firstTeamIndex, int secondTeamIndex) {
+        int size = TeamFactory.getTeamsCount();
+        if (firstTeamIndex == secondTeamIndex) return false;
+        if (firstTeamIndex > size || secondTeamIndex > size) return false;
+        return firstTeamIndex >= 1 && secondTeamIndex >= 1;
+    }
 
-        FootBollPlayer reservedPlayer2 = new FootBollPlayer("Luka", "Modrich", 33);
-        footBollPlayer5.setPlayingNumber(7);
-        footBollPlayer5.setPosition("right winger");
+    private static void processGameResult(String resultInfo, Football football) throws IOException {
+        boolean isActive = true;
+        System.out.println("........ process football result ..........");
+        while (isActive) {
+            System.out.println("1. show action");
+            System.out.println("2. show result");
+            System.out.println("3. show winner");
+            System.out.println("4. save result");
+            System.out.println("5. menu ");
+            int number = S.nextInt();
+            switch (number) {
+                case 1:
+                    showAction();
+                    break;
+                case 2:
+                    showGameResult(football);
+                    break;
+                case 3:
+                    showWinner(football);
+                    break;
+                case 4:
+                    saveHistory(resultInfo);
+                    break;
+                case 5:
+                    isActive = false;
+                    FileService.saveAction("", false);
+                    break;
+                default:
+                    System.out.println("Invalid button please choose again");
+            }
+        }
+    }
 
-        FootBollPlayer footBollPlayer6 = new FootBollPlayer("Arien", "Roben", 24);
-        footBollPlayer6.setPlayingNumber(3);
-        footBollPlayer6.setPosition("left winger");
+    private static void showGameResult(Football football) {
+        System.out.println(FootballService.getScore(football));
+    }
 
+    private static void showWinner(Football football) {
+        System.out.println(FootballService.getWinner(football));
+    }
 
-        FootBollPlayer footBollPlayer7 = new FootBollPlayer("Oliver", "Can", 25);
-        footBollPlayer7.setPlayingNumber(1);
-        footBollPlayer7.setPosition("goalkeeper");
+    private static void saveHistory(String resultInfo) throws IOException {
+        FileService.saveHistory(resultInfo, true);
+    }
 
-        FootBollPlayer footBollPlayer8 = new FootBollPlayer("Frank", "Riberi", 24);
-        footBollPlayer8.setPlayingNumber(2);
-        footBollPlayer8.setPosition("right winger");
-
-        FootBollPlayer footBollPlayer9 = new FootBollPlayer("Mario", "Gomes", 35);
-        footBollPlayer9.setPlayingNumber(4);
-        footBollPlayer9.setPosition("central");
-
-        FootBollPlayer footBollPlayer10 = new FootBollPlayer("Robert", "Levadovski", 33);
-        footBollPlayer10.setPlayingNumber(5);
-        footBollPlayer10.setPosition("central attack");
-
-        FootBollPlayer reservedPlayer3 = new FootBollPlayer("joshua", "Kimix", 35);
-        footBollPlayer4.setPlayingNumber(6);
-        footBollPlayer4.setPosition("left winger");
-
-
-        FootBollPlayer reservedPlayer4 = new FootBollPlayer("David", "Alaba", 33);
-        footBollPlayer5.setPlayingNumber(7);
-        footBollPlayer5.setPosition("right winger");
-
-
-        Referee referee = new Referee("Khavier", "Estrada", 32);
-        referee.setMainReferee(true);
-
-        Coach team1Coach = new Coach("Zinedin", "Zidan", 42);
-        Coach team2Coach = new Coach("Mauritio", "Pochetino", 26);
-
-        FootBollPlayer[] team1Players = {footBollPlayer1, footBollPlayer2, footBollPlayer3, footBollPlayer4, footBollPlayer5};
-        FootBollPlayer[] team1ReservePlayers = {reservedPlayer1, reservedPlayer2};
-        FootBollPlayer[] team2Players = {footBollPlayer6, footBollPlayer7, footBollPlayer8, footBollPlayer9, footBollPlayer10};
-        FootBollPlayer[] team2ReservePlayers = {reservedPlayer3, reservedPlayer4};
-
-        Team team1 = new Team(team1Players, team1ReservePlayers, team1Coach, "Real Madrid");
-        Team team2 = new Team(team2Players, team2ReservePlayers, team2Coach, "Bavaria");
-
-        Game real_bavaria = new Game(team1, team2, referee);
-
-        PlayerService ps = new PlayerService();
-        RefereeService rs = new RefereeService();
-        GameService gs = new GameService(rs, ps);
-        gs.play(real_bavaria);
-        System.out.println("Winner : " + gs.getWinner(real_bavaria));
-        System.out.println("Score : " + gs.getScore(real_bavaria));
-
-
+    private static void showAction() throws FileNotFoundException {
+        FileService.showAction();
     }
 }

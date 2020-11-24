@@ -1,15 +1,26 @@
 package am.picsart.lesson4.first_task.model;
 
-public class FootBollPlayer extends Player {
+public class FootballPlayer extends Player {
     private String position;
     private boolean isChanged;
+    private static  String[] actions;
 
-    public FootBollPlayer(String firstName, String lastName, int age) {
+    public FootballPlayer(String firstName, String lastName, int age) {
+
         super(firstName, lastName, age);
+        actions = new String[]{"simulation", "hand play",
+                "rouge play", "send pass", "send long pass",
+                "shot near target",
+                "foul", "take bool", "shoot on target", "tired"};
     }
 
     public String getPosition() {
         return position;
+    }
+    public static String[] getActions() {
+        String[] copyActions = new String[actions.length];
+        System.arraycopy(actions, 0, copyActions, 0, actions.length);
+        return copyActions;
     }
 
     public void setPosition(String position) {

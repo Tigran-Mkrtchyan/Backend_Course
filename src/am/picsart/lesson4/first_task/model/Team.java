@@ -1,28 +1,28 @@
 package am.picsart.lesson4.first_task.model;
 
 public class Team {
-    private FootBollPlayer[] players;
-    private final FootBollPlayer[] reservedPlayers;
+    private FootballPlayer[] players;
+    private final FootballPlayer[] reservedPlayers;
     private Coach coach;
     private String name;
 
 
-    public Team(FootBollPlayer[] players, FootBollPlayer[] reservedPlayers, Coach coach, String name) {
+    public Team(FootballPlayer[] players, FootballPlayer[] reservedPlayers, Coach coach, String name) {
         this.players = players;
         this.reservedPlayers = reservedPlayers;
         this.coach = coach;
         this.name = name;
     }
 
-    public FootBollPlayer[] getPlayers() {
+    public FootballPlayer[] getPlayers() {
         return players;
     }
 
-    public void setPlayers(FootBollPlayer[] players) {
+    public void setPlayers(FootballPlayer[] players) {
         this.players = players;
     }
 
-    public FootBollPlayer[] getReservedPlayers() {
+    public FootballPlayer[] getReservedPlayers() {
         return reservedPlayers;
     }
 
