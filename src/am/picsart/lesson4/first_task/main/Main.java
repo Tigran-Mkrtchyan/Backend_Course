@@ -9,7 +9,6 @@ import am.picsart.lesson4.first_task.services.FootballService;
 import am.picsart.lesson4.first_task.services.RefereeService;
 import am.picsart.lesson4.first_task.services.TeamFactory;
 
-import java.io.*;
 import java.util.Scanner;
 
 public class Main {
@@ -20,12 +19,12 @@ public class Main {
         S = new Scanner(System.in);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         System.out.println("welcome to football game");
         getTitle();
     }
 
-    private static void getTitle() throws IOException {
+    private static void getTitle() {
         boolean isActive = true;
         while (isActive) {
             System.out.println("1. new game");
@@ -53,15 +52,15 @@ public class Main {
         }
     }
 
-    private static void resetHistory() throws IOException {
+    private static void resetHistory() {
         FileService.saveHistory("", false);
     }
 
-    private static void showHistory() throws FileNotFoundException {
+    private static void showHistory() {
         FileService.showHistory();
     }
 
-    private static void startGame() throws IOException {
+    private static void startGame() {
         System.out.println("...... Teams list ......");
         String[] names = TeamFactory.getTeamsName();
         for (int i = 0; i < names.length; i++) {
@@ -93,7 +92,7 @@ public class Main {
         return firstTeamIndex >= 1 && secondTeamIndex >= 1;
     }
 
-    private static void processGameResult(String resultInfo, Football football) throws IOException {
+    private static void processGameResult(String resultInfo, Football football) {
         boolean isActive = true;
         System.out.println("........ process football result ..........");
         while (isActive) {
@@ -134,11 +133,11 @@ public class Main {
         System.out.println(FootballService.getWinner(football));
     }
 
-    private static void saveHistory(String resultInfo) throws IOException {
+    private static void saveHistory(String resultInfo) {
         FileService.saveHistory(resultInfo, true);
     }
 
-    private static void showAction() throws FileNotFoundException {
+    private static void showAction() {
         FileService.showAction();
     }
 }

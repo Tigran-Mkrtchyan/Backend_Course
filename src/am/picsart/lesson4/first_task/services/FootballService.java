@@ -4,8 +4,6 @@ import am.picsart.lesson4.first_task.model.Football;
 import am.picsart.lesson4.first_task.model.FootballPlayer;
 import am.picsart.lesson4.first_task.model.Team;
 
-import java.io.IOException;
-
 public class FootballService {
     private Team currentTeam;
     private FootballPlayer currentPlayer;
@@ -33,7 +31,7 @@ public class FootballService {
         TeamService.resetTeam(football.getSecondTeam());
     }
 
-    public void play() throws IOException {
+    public void play() {
         rs.startGame(football.getReferee());
         int currentAction = 0;
         currentTeam = football.getFirstTeam();
@@ -50,7 +48,7 @@ public class FootballService {
         rs.finishGame(football.getReferee(), football);
     }
 
-    private String analyzeAction(String action) throws IOException {
+    private String analyzeAction(String action) {
         FileService.saveAction(currentPlayer.getFirstName() + "  from " + currentTeam.getName() + " action " + action, true);
         if (action.equals("send pass") || action.equals("send long pass")) {
             return "continue";
@@ -70,7 +68,7 @@ public class FootballService {
         return "change";
     }
 
-    private void removePlayerFromGame() throws IOException {
+    private void removePlayerFromGame() {
         FileService.saveAction(String.format("%s leave football", currentPlayer.getFirstName()), true);
         currentPlayer.setActivePlayer(false);
     }
@@ -85,7 +83,7 @@ public class FootballService {
         return currentTeam.equals(football.getFirstTeam()) ? football.getSecondTeam() : football.getFirstTeam();
     }
 
-    private void setPoint(Football football, Team team) throws IOException {
+    private void setPoint(Football football, Team team) {
         FileService.saveAction(currentPlayer.getFirstName() + " from " + team.getName() + " shoot goal", true);
         if (team.equals(football.getFirstTeam())) {
             football.setFirstTeamPoint(football.getFirstTeamPoint() + 1);

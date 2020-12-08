@@ -4,12 +4,11 @@ import am.picsart.lesson4.first_task.model.FootballPlayer;
 import am.picsart.lesson4.first_task.model.Player;
 import am.picsart.lesson4.first_task.model.Team;
 
-import java.io.IOException;
 import java.util.Random;
 
 public class TeamService {
 
-    public static void changePlayer(Team team, FootballPlayer out) throws IOException {
+    public static void changePlayer(Team team, FootballPlayer out) {
         FootballPlayer in = getPlayerFromReserve(team, out);
         if (in == null) {
             return;
@@ -32,7 +31,7 @@ public class TeamService {
         return team.getPlayers()[index];
     }
 
-    public static FootballPlayer getPlayerFromReserve(Team team, FootballPlayer out) throws IOException {
+    public static FootballPlayer getPlayerFromReserve(Team team, FootballPlayer out) {
         FootballPlayer[] reserved = team.getReservedPlayers();
         for (int i = 0; i < reserved.length; i++) {
             if (!reserved[i].isChanged()) {

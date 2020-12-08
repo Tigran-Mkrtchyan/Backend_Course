@@ -104,6 +104,7 @@ public class TeamFactory {
 
         return new Team(players, reservePlayers, coach, "Bavaria");
     }
+
     private static Team createTeamLiverpool() {
         FootballPlayer footballPlayer1 = new FootballPlayer("Alisson", "Beaker", 25);
         footballPlayer1.setPlayingNumber(1);
@@ -141,6 +142,7 @@ public class TeamFactory {
 
         return new Team(players, reservePlayers, coach, "Liverpool");
     }
+
     private static Team createTeamParisSG() {
         FootballPlayer footballPlayer1 = new FootballPlayer("Kelnor", "Navas", 25);
         footballPlayer1.setPlayingNumber(1);
