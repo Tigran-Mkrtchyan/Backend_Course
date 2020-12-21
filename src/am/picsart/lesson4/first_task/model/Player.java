@@ -9,9 +9,7 @@ public abstract class Player extends Human {
 
 
     public Player(String firstName, String lastName, int age) {
-
         super(firstName, lastName, age);
-
     }
 
     public int getPlayingNumber() {

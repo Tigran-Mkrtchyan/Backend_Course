@@ -1,29 +1,35 @@
 package am.picsart.lesson4.first_task.model;
 
+import java.util.List;
+
 public class Team {
-    private FootballPlayer[] players;
-    private final FootballPlayer[] reservedPlayers;
+    private List<FootballPlayer> players;
+    private List<FootballPlayer> reservedPlayers;
     private Coach coach;
     private String name;
 
 
-    public Team(FootballPlayer[] players, FootballPlayer[] reservedPlayers, Coach coach, String name) {
+    public Team(List<FootballPlayer> players, List<FootballPlayer> reservedPlayers, Coach coach, String name) {
         this.players = players;
         this.reservedPlayers = reservedPlayers;
         this.coach = coach;
         this.name = name;
     }
 
-    public FootballPlayer[] getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(FootballPlayer[] players) {
+    public void setPlayers(List<FootballPlayer> players) {
         this.players = players;
     }
 
-    public FootballPlayer[] getReservedPlayers() {
+    public List<FootballPlayer> getPlayers() {
+        return players;
+    }
+
+    public List<FootballPlayer> getReservedPlayers() {
         return reservedPlayers;
+    }
+
+    public void setReservedPlayers(List<FootballPlayer> reservedPlayers) {
+        this.reservedPlayers = reservedPlayers;
     }
 
     public Coach getCoach() {

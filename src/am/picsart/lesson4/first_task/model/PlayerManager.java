@@ -1,32 +1,33 @@
 package am.picsart.lesson4.first_task.model;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerManager extends Human {
-    private Player[] players;
+    private List<Player> players;
 
     public PlayerManager(String firstName, String lastName, int age) {
         super(firstName, lastName, age);
-        players = new Player[5];
+        players = new ArrayList<>();
     }
 
-    public Player[] getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(Player[] players) {
+    public void setPlayers(List<Player> players) {
         this.players = players;
     }
 
     @Override
     public String toString() {
         return super.toString() +
-                "players=" + Arrays.toString(players);
+                "players=" + players;
     }
 
     @Override
     public void printInfo() {
         super.printInfo();
-        System.out.println(Arrays.toString(players));
+        System.out.println(players);
     }
 }

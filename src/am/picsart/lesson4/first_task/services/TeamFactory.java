@@ -3,28 +3,31 @@ package am.picsart.lesson4.first_task.services;
 import am.picsart.lesson4.first_task.model.Coach;
 import am.picsart.lesson4.first_task.model.FootballPlayer;
 import am.picsart.lesson4.first_task.model.Team;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TeamFactory {
-    private static final Team[] teams;
+    private static List<Team> teams;
 
     static {
-        teams = new Team[4];
-        teams[0] = createTeamReal();
-        teams[1] = createTeamBavaria();
-        teams[2] = createTeamLiverpool();
-        teams[3] = createTeamParisSG();
+        teams = new ArrayList<>();
+        teams.add(createTeamReal());
+        teams.add(createTeamBavaria());
+        teams.add(createTeamLiverpool());
+        teams.add(createTeamParisSG());
     }
 
-    public static String[] getTeamsName() {
-        String[] names = new String[teams.length];
-        for (int i = 0; i < teams.length; i++) {
-            names[i] = teams[i].getName();
+    public static List<String> getTeamsName() {
+        List<String> names = new ArrayList<>();
+        for (Team team : teams) {
+            names.add(team.getName());
         }
         return names;
     }
 
     public static Team getTeam(int index) {
-        return teams[index];
+        return teams.get(index);
     }
 
     private static Team createTeamReal() {
@@ -60,8 +63,8 @@ public class TeamFactory {
 
         Coach coach = new Coach("Zinedin", "Zidan", 42);
 
-        FootballPlayer[] players = {footballPlayer1, footballPlayer2, footballPlayer3, footballPlayer4, footballPlayer5};
-        FootballPlayer[] reservePlayers = {reservedPlayer1, reservedPlayer2};
+        List<FootballPlayer> players = Arrays.asList(footballPlayer1, footballPlayer2, footballPlayer3, footballPlayer4, footballPlayer5);
+        List<FootballPlayer> reservePlayers = Arrays.asList(reservedPlayer1, reservedPlayer2);
 
         return new Team(players, reservePlayers, coach, "Real Madrid");
     }
@@ -99,8 +102,8 @@ public class TeamFactory {
 
         Coach coach = new Coach("Mauritio", "Pochetino", 26);
 
-        FootballPlayer[] players = {footballPlayer1, footballPlayer2, footballPlayer3, footballPlayer4, footballPlayer5};
-        FootballPlayer[] reservePlayers = {reservedPlayer, reservedPlayer1};
+        List<FootballPlayer> players = Arrays.asList(footballPlayer1, footballPlayer2, footballPlayer3, footballPlayer4, footballPlayer5);
+        List<FootballPlayer> reservePlayers = Arrays.asList(reservedPlayer, reservedPlayer1);
 
         return new Team(players, reservePlayers, coach, "Bavaria");
     }
@@ -137,8 +140,8 @@ public class TeamFactory {
 
         Coach coach = new Coach("Klopp", "Jurgen", 42);
 
-        FootballPlayer[] players = {footballPlayer1, footballPlayer2, footballPlayer3, footballPlayer4, footballPlayer5};
-        FootballPlayer[] reservePlayers = {reservedPlayer1, reservedPlayer2};
+        List<FootballPlayer> players = Arrays.asList(footballPlayer1, footballPlayer2, footballPlayer3, footballPlayer4, footballPlayer5);
+        List<FootballPlayer> reservePlayers = Arrays.asList(reservedPlayer1, reservedPlayer2);
 
         return new Team(players, reservePlayers, coach, "Liverpool");
     }
@@ -175,14 +178,14 @@ public class TeamFactory {
 
         Coach coach = new Coach("Tomas", "Tukhel", 42);
 
-        FootballPlayer[] players = {footballPlayer1, footballPlayer2, footballPlayer3, footballPlayer4, footballPlayer5};
-        FootballPlayer[] reservePlayers = {reservedPlayer1, reservedPlayer2};
+        List<FootballPlayer> players = Arrays.asList(footballPlayer1, footballPlayer2, footballPlayer3, footballPlayer4, footballPlayer5);
+        List<FootballPlayer> reservePlayers = Arrays.asList(reservedPlayer1, reservedPlayer2);
 
         return new Team(players, reservePlayers, coach, "Paris SG");
     }
 
 
     public static int getTeamsCount() {
-        return teams.length;
+        return teams.size();
     }
 }

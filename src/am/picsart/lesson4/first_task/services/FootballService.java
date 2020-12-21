@@ -1,8 +1,6 @@
 package am.picsart.lesson4.first_task.services;
 
-import am.picsart.lesson4.first_task.model.Football;
-import am.picsart.lesson4.first_task.model.FootballPlayer;
-import am.picsart.lesson4.first_task.model.Team;
+import am.picsart.lesson4.first_task.model.*;
 
 public class FootballService {
     private Team currentTeam;
@@ -35,48 +33,51 @@ public class FootballService {
         rs.startGame(football.getReferee());
         int currentAction = 0;
         currentTeam = football.getFirstTeam();
+
         while (isGameFinish(currentAction++)) {
             currentPlayer = TeamService.getActivePlayer(currentTeam);
-            String action = fs.play();
-            String result = analyzeAction(action);
-            if (result.equals("change")) {
+            Actions action = fs.play();
+            GameActions result = analyzeAction(action);
+            if (result.equals(GameActions.LOSE_BALL)) {
                 currentTeam = getConcurrentTeam(currentTeam);
-            } else if (result.equals("change player")) {
+            } else if (result.equals(GameActions.CHANGE_PLAYER)) {
                 TeamService.changePlayer(currentTeam, currentPlayer);
             }
         }
         rs.finishGame(football.getReferee(), football);
     }
 
-    private String analyzeAction(String action) {
-        FileService.saveAction(currentPlayer.getFirstName() + "  from " + currentTeam.getName() + " action " + action, true);
-        if (action.equals("send pass") || action.equals("send long pass")) {
-            return "continue";
+    private GameActions analyzeAction(Actions action) {
+        FileService.saveAction(String.format("%s from %s ", currentPlayer.getFirstName(), action), true);
+
+        if (action.equals(Actions.SEND_PASS) || action.equals(Actions.SEND_LONG_PASS)) {
+            return GameActions.CONTINUE;
         }
-        if (action.equals("tired")) {
-            return "change player";
+
+        if (action.equals(Actions.TIRED)) {
+            return GameActions.CHANGE_PLAYER;
         }
-        String result = rs.stopGame(football.getReferee(), action);
-        if (result.equals("yellow card")) {
+
+        RefereeActions result = rs.stopGame(football.getReferee(), action);
+
+        if (result.equals(RefereeActions.YEllOW_CARD)) {
             int countOfYellowCard = PlayerService.addYellowCard(currentPlayer);
             if (countOfYellowCard > 1) {
                 removePlayerFromGame();
             }
-        } else if (result.equals("goal")) {
+        } else if (result.equals(RefereeActions.GOAL)) {
             setPoint(football, currentTeam);
         }
-        return "change";
+        return GameActions.LOSE_BALL;
     }
 
     private void removePlayerFromGame() {
-        FileService.saveAction(String.format("%s leave football", currentPlayer.getFirstName()), true);
+        FileService.saveAction(String.format("%s leave game", currentPlayer.getFirstName()), true);
         currentPlayer.setActivePlayer(false);
     }
 
     private boolean isGameFinish(int currentAction) {
-
         return GAME_ACTION_C0UNT - currentAction > 0;
-
     }
 
     private Team getConcurrentTeam(Team currentTeam) {
@@ -84,7 +85,8 @@ public class FootballService {
     }
 
     private void setPoint(Football football, Team team) {
-        FileService.saveAction(currentPlayer.getFirstName() + " from " + team.getName() + " shoot goal", true);
+        FileService.saveAction(String.format(" %s from %s shoot goal", currentPlayer.getFirstName(), team.getName()), true);
+
         if (team.equals(football.getFirstTeam())) {
             football.setFirstTeamPoint(football.getFirstTeamPoint() + 1);
         } else {

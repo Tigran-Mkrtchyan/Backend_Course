@@ -1,7 +1,9 @@
 package am.picsart.lesson4.first_task.services;
 
+import am.picsart.lesson4.first_task.model.Actions;
 import am.picsart.lesson4.first_task.model.Football;
 import am.picsart.lesson4.first_task.model.Referee;
+import am.picsart.lesson4.first_task.model.RefereeActions;
 
 public interface Inspectable {
 
@@ -9,7 +11,7 @@ public interface Inspectable {
 
     void finishGame(Referee referee, Football football);
 
-    String stopGame(Referee referee, String cause);
+    RefereeActions stopGame(Referee referee, Actions cause);
 
 }
 

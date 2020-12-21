@@ -31,30 +31,35 @@ public class FileService {
     }
 
     public static void saveHistory(String info, boolean isAppend) {
-        FileWriter fileWriter;
+
         try {
-            fileWriter = new FileWriter(PATH_HISTORY, isAppend);
+            FileWriter fileWriter = new FileWriter(PATH_HISTORY, isAppend);
+            save(fileWriter, info);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        save(fileWriter, info);
     }
 
     public static void saveAction(String action, boolean isAppend) {
-        FileWriter fileWriter;
+
         try {
-            fileWriter = new FileWriter(PATH_ACTIONS, isAppend);
+            FileWriter fileWriter = new FileWriter(PATH_ACTIONS, isAppend);
+            save(fileWriter, action);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        save(fileWriter, action);
+
     }
 
     private static void save(FileWriter fileWriter, String info) {
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.append(info).append("\n");
         printWriter.close();
+    }
+
+    public static void clearActionList() {
+        saveAction("", false);
     }
 }

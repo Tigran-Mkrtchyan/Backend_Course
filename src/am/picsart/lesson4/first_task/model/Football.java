@@ -2,11 +2,11 @@ package am.picsart.lesson4.first_task.model;
 
 public class Football {
 
-    private Team firstTeam;
-    private Team secondTeam;
+    private final Team firstTeam;
+    private final Team secondTeam;
     private int firstTeamPoint;
     private int secondTeamPoint;
-    private Referee referee;
+    private final Referee referee;
 
 
     public Football(Team team1, Team team2, Referee referee) {

@@ -1,13 +1,18 @@
 package am.picsart.lesson4.first_task.services;
 
+import am.picsart.lesson4.first_task.model.Actions;
 import am.picsart.lesson4.first_task.model.Football;
 import am.picsart.lesson4.first_task.model.Referee;
+import am.picsart.lesson4.first_task.model.RefereeActions;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class RefereeService implements Inspectable {
-    private final String[] rougeFouls;
+    private static final List<Actions> rougeFouls;
 
-    public RefereeService() {
-        rougeFouls = new String[]{"simulation", "hand play", "rouge play"};
+    static {
+        rougeFouls = Arrays.asList(Actions.SIMULATION, Actions.HAND_PLAY, Actions.ROUGE_PLAY);
     }
 
     @Override
@@ -22,18 +27,18 @@ public class RefereeService implements Inspectable {
     }
 
     @Override
-    public String stopGame(Referee referee, String cause) {
+    public RefereeActions stopGame(Referee referee, Actions cause) {
         if (isFoulForYellowCard(cause)) {
-            return "yellow card";
+            return RefereeActions.YEllOW_CARD;
         }
-        if (cause.equals("shoot on target")) {
-            return "goal";
+        if (cause.equals(Actions.SHOOT_ON_TARGET)) {
+            return RefereeActions.GOAL;
         }
-        return "foul";
+        return RefereeActions.FOUL;
     }
 
-    private boolean isFoulForYellowCard(String cause) {
-        for (String foul : rougeFouls) {
+    private boolean isFoulForYellowCard(Actions cause) {
+        for (Actions foul : rougeFouls) {
             if (foul.equals(cause)) {
                 return true;
             }

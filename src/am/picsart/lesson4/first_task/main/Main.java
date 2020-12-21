@@ -9,6 +9,7 @@ import am.picsart.lesson4.first_task.services.FootballService;
 import am.picsart.lesson4.first_task.services.RefereeService;
 import am.picsart.lesson4.first_task.services.TeamFactory;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -34,6 +35,7 @@ public class Main {
             int number = S.nextInt();
             switch (number) {
                 case 1:
+                    FileService.clearActionList();
                     startGame();
                     break;
                 case 2:
@@ -62,9 +64,9 @@ public class Main {
 
     private static void startGame() {
         System.out.println("...... Teams list ......");
-        String[] names = TeamFactory.getTeamsName();
-        for (int i = 0; i < names.length; i++) {
-            System.out.printf("%d. %s\n", i + 1, names[i]);
+        List<String> names = TeamFactory.getTeamsName();
+        for (int i = 0; i < names.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, names.get(i));
         }
         System.out.println("Please choose first team");
         int firstTeamIndex = S.nextInt();
@@ -117,7 +119,6 @@ public class Main {
                     break;
                 case 5:
                     isActive = false;
-                    FileService.saveAction("", false);
                     break;
                 default:
                     System.out.println("Invalid button please choose again");

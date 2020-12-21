@@ -1,4 +1,2 @@
 
-Real Madrid vs Paris SG : 2 : 0 : winner : Real Madrid
-Liverpool vs Bavaria : 1 : 0 : winner : Liverpool
-Real Madrid vs Paris SG : 1 : 1 : winner : equal football
+Liverpool vs Paris SG : 0 : 1 : winner : Paris SG

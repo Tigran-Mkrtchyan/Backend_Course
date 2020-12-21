@@ -4,6 +4,7 @@ import am.picsart.lesson4.first_task.model.FootballPlayer;
 import am.picsart.lesson4.first_task.model.Player;
 import am.picsart.lesson4.first_task.model.Team;
 
+import java.util.List;
 import java.util.Random;
 
 public class TeamService {
@@ -13,9 +14,9 @@ public class TeamService {
         if (in == null) {
             return;
         }
-        for (int i = 0; i < team.getPlayers().length; i++) {
-            if (team.getPlayers()[i].equals(out)) {
-                team.getPlayers()[i] = in;
+        for (int i = 0; i < team.getPlayers().size(); i++) {
+            if (team.getPlayers().get(i).equals(out)) {
+                team.getPlayers().set(i, in);
             }
         }
     }
@@ -27,17 +28,17 @@ public class TeamService {
     }
 
     private static FootballPlayer getPlayer(Team team) {
-        int index = new Random().nextInt(team.getPlayers().length);
-        return team.getPlayers()[index];
+        int index = new Random().nextInt(team.getPlayers().size());
+        return team.getPlayers().get(index);
     }
 
     public static FootballPlayer getPlayerFromReserve(Team team, FootballPlayer out) {
-        FootballPlayer[] reserved = team.getReservedPlayers();
-        for (int i = 0; i < reserved.length; i++) {
-            if (!reserved[i].isChanged()) {
-                FootballPlayer temp = reserved[i];
+        List<FootballPlayer> reserved = team.getReservedPlayers();
+        for (int i = 0; i < reserved.size(); i++) {
+            if (!reserved.get(i).isChanged()) {
+                FootballPlayer temp = reserved.get(i);
                 out.setChanged(true);
-                reserved[i] = out;
+                reserved.set(i,out);
                 FileService.saveAction(String.format("Exchange: in place %s entered %s", out.getFirstName(), temp.getFirstName()), true);
                 return temp;
             }
