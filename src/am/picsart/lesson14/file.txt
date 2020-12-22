@@ -1,0 +1,16 @@
+OOP: question 1
+OOP: question 2
+OOP: question 1
+OOP: question 3
+OOP: question 45
+OOP: question 3
+EXCEPTION: question 1
+EXCEPTION: question 2
+EXCEPTION: question 2
+EXCEPTION: question 3
+EXCEPTION: question 4
+EXCEPTION: question 4
+BASIC: question 1
+BASIC: question 2
+BASIC: question 2
+BASIC: question 1
