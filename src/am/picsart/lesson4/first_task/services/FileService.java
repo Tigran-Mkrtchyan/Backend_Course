@@ -1,11 +1,17 @@
 package am.picsart.lesson4.first_task.services;
 
+import am.picsart.lesson4.first_task.model.User;
+
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileService {
     private final static String PATH_HISTORY = "src\\am\\picsart\\lesson4\\first_task\\history.txt";
     private final static String PATH_ACTIONS = "src\\am\\picsart\\lesson4\\first_task\\actions.txt";
+    private final static String PATH_DATABASE = "src\\am\\picsart\\lesson4\\first_task\\database.txt";
 
     public static void showHistory() {
         File file = new File(PATH_HISTORY);
@@ -61,5 +67,24 @@ public class FileService {
 
     public static void clearActionList() {
         saveAction("", false);
+    }
+
+    public static List<String> readDatabaseInfo() {
+        try {
+            return Files.readAllLines(Paths.get(PATH_DATABASE));
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    public static void saveUser(User user) {
+        try {
+            FileWriter fileWriter = new FileWriter(PATH_DATABASE,true);
+            save(fileWriter,user.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 }

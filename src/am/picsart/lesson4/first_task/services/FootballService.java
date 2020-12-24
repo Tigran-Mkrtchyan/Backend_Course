@@ -21,7 +21,10 @@ public class FootballService {
     }
 
     public static String getWinner(Football football) {
-        return football.getFirstTeamPoint() > football.getSecondTeamPoint() ? football.getFirstTeam().getName() : football.getFirstTeamPoint() < football.getSecondTeamPoint() ? football.getSecondTeam().getName() : "equal football";
+        return football.getFirstTeamPoint() > football.getSecondTeamPoint()
+                ? football.getFirstTeam().getName()
+                : football.getFirstTeamPoint() < football.getSecondTeamPoint()
+                ? football.getSecondTeam().getName() : "equal game";
     }
 
     public static void resetGame(Football football) {
@@ -48,7 +51,7 @@ public class FootballService {
     }
 
     private GameActions analyzeAction(Actions action) {
-        FileService.saveAction(String.format("%s from %s ", currentPlayer.getFirstName(), action), true);
+        FileService.saveAction(String.format("%s from %s %s ", currentPlayer.getFirstName(), currentTeam.getName(), action), true);
 
         if (action.equals(Actions.SEND_PASS) || action.equals(Actions.SEND_LONG_PASS)) {
             return GameActions.CONTINUE;
